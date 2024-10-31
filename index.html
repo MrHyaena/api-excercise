@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img src="#" />
+    <button id="generate">Generate</button>
+    <input id="search" />
+    <script>
+      const btn = document.querySelector("#generate");
+      const img = document.querySelector("img");
+      const search = document.querySelector("#search");
+
+      fetchGiphy();
+      btn.addEventListener("click", fetchGiphy);
+
+      function fetchGiphy() {
+        let name = search.value;
+        let urlTarget =
+          "https://api.giphy.com/v1/gifs/translate?api_key=70O3KEbncItB3F3MIA3fgJIYjlUaj2HZ&s=";
+
+        if (name == "") {
+          name = "gif";
+        }
+
+        finalTarget = urlTarget + name;
+        fetch(finalTarget, { mode: "cors" })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            img.src = response.data.images.original.url;
+          })
+          .catch(function () {
+            console.log("No Gifs with that name");
+          });
+      }
+    </script>
+  </body>
+</html>
